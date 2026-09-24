@@ -1,20 +1,23 @@
-# Apple Watch SE3 × Fitbit Air 比較ログ
+# ウェアラブル実測ログ(サイト名は未定・仮の表示は「yy-devlog」)
 
-Apple Watch SE3 と Fitbit Air を併用(日中は足首、就寝時は手首)して比較する、GitHub Pages 用のサイトです。
-実測データのグラフと、記事(ブログ)の両方を載せられます。
-記録が始まっていない間、グラフ部分は「まだ記録がありません」という空の状態で表示されます。
+ウェアラブル機器とイヤホンを、実際に使って測った数値で紹介する個人メディア(GitHub Pages)です。
+最初の企画は「Apple Watch SE 3 と Fitbit Air の併用」。結論を先に書き、実測記事で確かめていきます。
+要件は [CLAUDE.md](CLAUDE.md) にまとめてあります。
 
-- 想定するサイトURL: `https://yy-devlog.github.io/wearable-duo-log/`
-- 想定するリポジトリ名: `wearable-duo-log`
+- サイトURL: `https://yy-devlog.github.io/`
+- リポジトリ名: `yy-devlog.github.io`(この名前にすると、URLの後ろにリポジトリ名が付かない)
+- サイト名を決めたら、`scripts/build_site.py` の `SITE_NAME` を書き換えるだけで全ページに反映される
 
 ## フォルダ構成
 
 ```
-index.html / about.html / privacy.html   トップ・運営者情報・プライバシーポリシー
+index.html                               トップ(記事一覧)
+about.html / privacy.html                このサイトについて・プライバシーポリシー
+compare.html                             実測データの比較ページ(記録が始まるまで非公開。DRAFT_PAGES で制御)
 assets/                                  style.css, app.js(グラフ描画)
 data/log.json                            記録データ(スプレッドシートから自動生成される)
 articles/                                記事(Markdown)を置く場所
-templates/base.html                      記事ページ共通の枠(ナビ・広告表記・フッター)
+templates/base.html                      記事ページ共通の枠(ナビ・フッター)
 scripts/csv_to_json.py                   スプレッドシートのCSV → data/log.json
 scripts/build_site.py                    記事のHTML化 + サイト全体を _site/ に組み立てる
 .github/workflows/sync-sheet.yml         毎日の自動実行(データ取得 → ビルド → 公開)
@@ -43,7 +46,7 @@ python3 -m http.server -d _site 8000             # http://localhost:8000/ で確
 ## セットアップ手順
 
 ### 1. GitHubリポジトリの作成
-1. GitHubで新しいリポジトリ `wearable-duo-log` を作成(Public。READMEやライセンスの自動追加はオフ)
+1. GitHubで新しいリポジトリ `yy-devlog.github.io` を作成(Public。READMEやライセンスの自動追加はオフ)
 2. このフォルダの中身をすべてそのリポジトリに push する
    (メールアドレスは、GitHubの `xxxx+ユーザー名@users.noreply.github.com` を使う設定にしてある)
 
@@ -95,15 +98,23 @@ python3 -m http.server -d _site 8000             # http://localhost:8000/ で確
 
 ## 記入が必要な箇所(運営者が後で自分で記入する)
 
-- `about.html` … 氏名・連絡先(運営者情報)。ファイル内にコメントで印をつけてある
-- `privacy.html` … Cookie/アクセス解析の利用有無、制定日。同じくコメントあり
-- `articles/2026-10-price-se3-air.md` … サンプル記事(下書き)。価格を公式サイトで再確認して、`draft: true` を消すと公開される
+- `about.html` … 運営者の表示名・紹介文、お問い合わせフォームのURL。ファイル内にコメントで印をつけてある
+- `privacy.html` … 制定日。Cookieの記載も、公開後に確認する
+- `articles/se3-air-conclusion.md` … 記事1本目(下書き)。価格を公式サイトで再確認して、`draft: true` を消すと公開される
 
-## Amazonアソシエイト申請について
+未記入の欄やTODOが公開ページに残っていると、ビルド時に「注意: …」と表示されます(止まりはしません)。公開前にこの表示が出ていないことを確認してください。
 
-- 申請前に、記事(補助コンテンツ)をいくつか追加しておくことを推奨します(スペック比較1本だけでは弱いことが多いです)
-- 審査通過後、`index.html` / `about.html` 内の `href="#"` になっているリンクを、実際のアフィリエイトリンクに差し替えてください
-- 審査通過後、`about.html` の広告表記を「参加者です」の文に差し替える(該当箇所にコメントあり)。`index.html` のバナー・フッター、`templates/base.html` のバナー・フッターの「予定です」の表記も更新する
-- 独自ドメインを使う場合は、このフォルダのルートに `CNAME` ファイル(中身はドメイン名のみ)を追加し、
-  Actions の環境変数 `SITE_URL` にそのドメイン(`https://example.com`)を設定してください。
-  `scripts/build_site.py` の `SITE_URL` の初期値も、その時点で書き換えると分かりやすいです。
+## アフィリエイト(Amazonアソシエイト)について
+
+現在は広告・アフィリエイトを載せていません。アクセスと記事が増えてから、申請を検討します。始めるときは次を更新します。
+
+- `about.html` に「広告について」の節を書く(Amazonアソシエイトの定型文もここに入れる。ファイル内にコメントあり)
+- `privacy.html` の「アクセス解析・広告」の節を書き換える
+- 広告であることが分かる表記を、ページ上部などに足す(`templates/base.html`)
+- 記事内に、実際のアフィリエイトリンクを入れる
+
+## 独自ドメインを使う場合
+
+- このフォルダのルートに `CNAME` ファイル(中身はドメイン名のみ)を追加する
+- Actions の Variables に `SITE_URL`(例: `https://example.com`)を追加する
+  (`scripts/build_site.py` の `SITE_URL` の初期値を書き換えてもよい)

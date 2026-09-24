@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>腕を大きくしたくない人の、ウェアラブル二刀流 | Apple Watch SE3 × Fitbit Air</title>
-<meta name="description" content="Apple Watch SE3とFitbit Airを併用(日中は足首、就寝時は手首)して、歩数・アクティビティ・ワークアウトを実測比較する記録サイト。">
+<title>%SITE_NAME% | %SITE_TAGLINE%</title>
+<meta name="description" content="ウェアラブル機器とイヤホンを、実際に使って測った数値で紹介する個人の記録。">
 <link rel="canonical" href="%SITE_URL%/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="SE3 × Air ログ">
-<meta property="og:title" content="腕を大きくしたくない人の、ウェアラブル二刀流 | Apple Watch SE3 × Fitbit Air">
-<meta property="og:description" content="Apple Watch SE3とFitbit Airを併用(日中は足首、就寝時は手首)して、歩数・アクティビティ・ワークアウトを実測比較する記録サイト。">
+<meta property="og:site_name" content="%SITE_NAME%">
+<meta property="og:title" content="%SITE_NAME% | %SITE_TAGLINE%">
+<meta property="og:description" content="ウェアラブル機器とイヤホンを、実際に使って測った数値で紹介する個人の記録。">
 <meta property="og:url" content="%SITE_URL%/">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌚</text></svg>">
@@ -17,15 +17,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 </head>
 <body>
 
-<div class="ad-banner">本サイトはAmazonアソシエイト・プログラム等のアフィリエイト広告を掲載する予定です(現在準備中・リンクは未設置)</div>
-
 <nav class="site-nav">
   <div class="wrap">
-    <a class="brand" href="index.html">⌚ SE3 × Air ログ</a>
+    <a class="brand" href="index.html">⌚ %SITE_NAME%</a>
     <div class="links">
       <a href="articles/">記事</a>
       <a href="about.html">このサイトについて</a>
@@ -37,98 +34,25 @@
 <div class="wrap">
 
   <header class="hero">
-    <p class="eyebrow">ウェアラブル比較ログ・2026年10月開始予定</p>
-    <h1 class="title">腕を大きくしたくない人の、ウェアラブル二刀流</h1>
+    <p class="eyebrow">%SITE_TAGLINE%</p>
+    <h1 class="title wide">カタログの数字ではなく、使って測った数字で。</h1>
     <p class="lede">
-      最近のハイエンドApple Watchは年々大きくなっている。その一方で需要があるはずの「小さいApple Watch」がApple Watch SE3。
-      さらに日中は足首に、就寝中は手首に着け替える画面レスのFitbit Airを組み合わせ、歩数・アクティビティ・ワークアウトのデータを継続的に記録して比較する。
+      スマートウォッチや活動量計、イヤホンなどを、実際に身に着けて記録した数値で紹介する個人の記録です。
+      結論を先に書き、その根拠になる実測を続けて載せていきます。
     </p>
-    <div class="price-row">
-      <div class="price-stat"><div class="num watch">¥37,800</div><div class="label">Apple Watch SE3(40mm GPS)</div></div>
-      <div class="plus">+</div>
-      <div class="price-stat"><div class="num air">¥16,800</div><div class="label">Fitbit Air</div></div>
-      <div class="lt">&lt;</div>
-      <div class="price-stat"><div class="num">¥64,800</div><div class="label">参考:Apple Watch Series 11</div></div>
-    </div>
   </header>
 
-  <section id="specs">
-    <h2 class="section-title">2台のスペック</h2>
-    <p class="section-sub">公式発表ベースの静的な比較。価格・重量・センサー構成など、購入前提となる情報。</p>
-    <div class="device-grid">
-      <div class="device-card watch">
-        <h3><span class="dot"></span>Apple Watch SE3</h3>
-        <div class="price">¥37,800〜</div>
-        <div class="spec-row"><span class="k">発売</span><span class="v">2025年9月</span></div>
-        <div class="spec-row"><span class="k">重量</span><span class="v">26.3g(40mm)/ 32.9g(44mm)</span></div>
-        <div class="spec-row"><span class="k">ディスプレイ</span><span class="v">Retina OLED・常時表示対応</span></div>
-        <div class="spec-row"><span class="k">バッテリー</span><span class="v">最大18時間</span></div>
-        <div class="spec-row"><span class="k">主なセンサー</span><span class="v">心拍・皮膚温・睡眠時無呼吸通知</span></div>
-        <div class="spec-row"><span class="k">非対応</span><span class="v">血中酸素・心電図</span></div>
-        <div class="spec-row"><span class="k">装着部位</span><span class="v">手首(常時)</span></div>
-        <a class="affiliate-btn" href="#">Amazonで見る</a>
-      </div>
-      <div class="device-card air">
-        <h3><span class="dot"></span>Fitbit Air</h3>
-        <div class="price">¥16,800</div>
-        <div class="spec-row"><span class="k">発売</span><span class="v">2026年5月</span></div>
-        <div class="spec-row"><span class="k">重量</span><span class="v">5.2g(本体)/ 12g(バンド込み)</span></div>
-        <div class="spec-row"><span class="k">ディスプレイ</span><span class="v">なし(画面レス「ペブル」型)</span></div>
-        <div class="spec-row"><span class="k">バッテリー</span><span class="v">最大7日間・5分急速充電で1日分</span></div>
-        <div class="spec-row"><span class="k">主なセンサー</span><span class="v">心拍・SpO2・HRV・心房細動アラート</span></div>
-        <div class="spec-row"><span class="k">アプリ</span><span class="v">Google Health</span></div>
-        <div class="spec-row"><span class="k">装着部位</span><span class="v">日中は足首 / 就寝時は手首</span></div>
-        <a class="affiliate-btn" href="#">Amazonで見る</a>
-      </div>
-    </div>
-    <div class="price-chart-wrap">
-      <canvas id="priceChart" height="90"></canvas>
-    </div>
-  </section>
-
-  <section id="trend">
-    <h2 class="section-title">日々の記録</h2>
-    <p class="section-sub">歩数・アクティビティ時間の推移。スプレッドシート更新後、自動で反映される。</p>
-    <div id="trendArea"></div>
-  </section>
-
-  <section id="workouts">
-    <h2 class="section-title">ワークアウト別の比較</h2>
-    <p class="section-sub">同じワークアウトを両デバイスで記録した際の数値差。</p>
-    <div id="workoutArea"></div>
-  </section>
-
-  <section id="review">
-    <h2 class="section-title">使い分けの記録</h2>
-    <div class="review-block">
-      <p>
-        SE3を選んだ理由は単純で、ハイエンド機ほど画面が大きく重くなっていく流れに乗りたくなかったから。
-        そこにFitbit Airを足したのは、24時間つけっぱなしにするには小さい方のApple Watchでもまだ気になる場面があり、
-        睡眠中だけでも身につける負担を減らしたかったから。日中は足首、就寝中は手首という使い分けが実際に続けられるかどうかも、
-        このログで検証していく。
-      </p>
-      <p>
-        なお、Fitbit Airは足首への装着を公式には想定していない。付属バンドは手首周り130〜210mm向けで、
-        足首の太さによっては専用バンドが必要になる場合がある。座って動かない時間が「昼寝」と誤記録される、といった
-        報告もあるため、その点も実測しながら記録していく。
-      </p>
-    </div>
-    <div id="logArea" style="margin-top:24px;"></div>
-  </section>
-
   <section id="articles">
-    <h2 class="section-title">新着記事</h2>
-    <p class="section-sub">実測ベースの比較や、使い方の記録。</p>
-    <!-- LATEST_ARTICLES: 公開時に scripts/build_site.py が新着記事の一覧に置き換える -->
+    <h2 class="section-title">記事</h2>
+    <p class="section-sub">新しい順。</p>
+    <!-- LATEST_ARTICLES: 公開時に scripts/build_site.py が記事の一覧に置き換える -->
   </section>
 
   <footer class="site-footer">
-    <p id="lastUpdated">最終更新:—</p>
-    <p>本サイトはAmazonアソシエイト・プログラムの参加者になることを予定しています。参加後は、適格販売により収入を得ることがあります。詳しくは<a href="about.html">このサイトについて</a>をご覧ください。</p>
+    <p>%SITE_NAME% ・ %SITE_TAGLINE%</p>
   </footer>
 
 </div>
 
-<script src="assets/app.js"></script>
 </body>
 </html>

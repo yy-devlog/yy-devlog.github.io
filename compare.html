@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Watch SE 3 × Fitbit Air 実測比較 | %SITE_NAME%</title>
+<meta name="description" content="Apple Watch SE 3とFitbit Airを併用(日中は足首、就寝時は手首)して、歩数・アクティビティ・ワークアウトを実測比較する記録。">
+<link rel="canonical" href="%SITE_URL%/compare.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="%SITE_NAME%">
+<meta property="og:title" content="Apple Watch SE 3 × Fitbit Air 実測比較 | %SITE_NAME%">
+<meta property="og:description" content="Apple Watch SE 3とFitbit Airを併用して、歩数・アクティビティ・ワークアウトを実測比較する記録。">
+<meta property="og:url" content="%SITE_URL%/compare.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌚</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!--
+  このページ(実測データの比較)は、Fitbit Airが届いて記録が始まるまで公開しない。
+  scripts/build_site.py の DRAFT_PAGES に入っている間は、ビルドしても出力されない(--drafts を付けたときだけ出力)。
+  公開するとき:
+    1) build_site.py の DRAFT_PAGES から "compare.html" を外す
+    2) 下の価格(SE 3・Series 12・Ultra 4・Fitbit Air)と assets/app.js の priceData を、公式ページで再確認する
+    3) 各ページのナビに「実測データ」のリンクを足す
+-->
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">⌚ %SITE_NAME%</a>
+    <div class="links">
+      <a href="articles/">記事</a>
+      <a href="about.html">このサイトについて</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">実測比較・2026年10月開始予定</p>
+    <h1 class="title wide">Apple Watch SE 3 × Fitbit Air 実測比較</h1>
+    <p class="lede">
+      小さいApple Watch(SE 3)と、画面のないFitbit Airを併用し、歩数・アクティビティ・ワークアウトのデータを継続的に記録して比べる。
+      日中は足首、就寝時は手首に着け替えて使う。
+    </p>
+    <!-- TODO(公開前に確認): 価格は2026年9月時点の公式表記(「〜から」の最低価格の構成)。SE 3とFitbit Airは要再確認。 -->
+    <div class="price-row">
+      <div class="price-stat"><div class="num watch">¥41,800〜</div><div class="label">Apple Watch SE 3</div></div>
+      <div class="plus">+</div>
+      <div class="price-stat"><div class="num air">¥16,800</div><div class="label">Fitbit Air</div></div>
+      <div class="lt">&lt;</div>
+      <div class="price-stat"><div class="num">¥71,800〜</div><div class="label">参考:Apple Watch Series 12</div></div>
+    </div>
+  </header>
+
+  <section id="specs">
+    <h2 class="section-title">2台のスペック</h2>
+    <p class="section-sub">公式発表ベースの静的な比較。価格・重量・センサー構成など、購入前提となる情報。</p>
+    <div class="device-grid">
+      <div class="device-card watch">
+        <h3><span class="dot"></span>Apple Watch SE 3</h3>
+        <div class="price">¥41,800〜</div>
+        <div class="spec-row"><span class="k">重量</span><span class="v">26.3g(40mm)/ 32.9g(44mm)</span></div>
+        <div class="spec-row"><span class="k">ディスプレイ</span><span class="v">Retina OLED・常時表示対応</span></div>
+        <div class="spec-row"><span class="k">バッテリー</span><span class="v">最大18時間</span></div>
+        <div class="spec-row"><span class="k">主なセンサー</span><span class="v">心拍・皮膚温・睡眠時無呼吸通知</span></div>
+        <div class="spec-row"><span class="k">非対応</span><span class="v">血中酸素・心電図</span></div>
+        <div class="spec-row"><span class="k">装着部位</span><span class="v">手首(常時)</span></div>
+      </div>
+      <div class="device-card air">
+        <h3><span class="dot"></span>Fitbit Air</h3>
+        <div class="price">¥16,800</div>
+        <div class="spec-row"><span class="k">発売</span><span class="v">2026年5月</span></div>
+        <div class="spec-row"><span class="k">重量</span><span class="v">5.2g(本体)/ 12g(バンド込み)</span></div>
+        <div class="spec-row"><span class="k">ディスプレイ</span><span class="v">なし(画面レス「ペブル」型)</span></div>
+        <div class="spec-row"><span class="k">バッテリー</span><span class="v">最大7日間・5分急速充電で1日分</span></div>
+        <div class="spec-row"><span class="k">主なセンサー</span><span class="v">心拍・SpO2・HRV・心房細動アラート</span></div>
+        <div class="spec-row"><span class="k">アプリ</span><span class="v">Google Health</span></div>
+        <div class="spec-row"><span class="k">装着部位</span><span class="v">日中は足首 / 就寝時は手首</span></div>
+      </div>
+    </div>
+    <div class="price-chart-wrap">
+      <canvas id="priceChart" height="90"></canvas>
+    </div>
+  </section>
+
+  <section id="trend">
+    <h2 class="section-title">日々の記録</h2>
+    <p class="section-sub">歩数・アクティビティ時間の推移。スプレッドシート更新後、自動で反映される。</p>
+    <div id="trendArea"></div>
+  </section>
+
+  <section id="workouts">
+    <h2 class="section-title">ワークアウト別の比較</h2>
+    <p class="section-sub">同じワークアウトを両デバイスで記録した際の数値差。</p>
+    <div id="workoutArea"></div>
+  </section>
+
+  <section id="review">
+    <h2 class="section-title">使い分けの記録</h2>
+    <div class="review-block">
+      <p>
+        SE 3を選んだ理由は単純で、ハイエンド機ほど画面が大きく重くなっていく流れに乗りたくなかったから。
+        そこにFitbit Airを足したのは、24時間つけっぱなしにするには小さい方のApple Watchでもまだ気になる場面があり、
+        睡眠中だけでも身につける負担を減らしたかったから。日中は足首、就寝中は手首という使い分けが実際に続けられるかどうかも、
+        このログで検証していく。
+      </p>
+      <p>
+        なお、Fitbit Airは足首への装着を公式には想定していない。付属バンドは手首周り130〜210mm向けで、
+        足首の太さによっては専用バンドが必要になる場合がある。座って動かない時間が「昼寝」と誤記録される、といった
+        報告もあるため、その点も実測しながら記録していく。
+      </p>
+    </div>
+    <div id="logArea" style="margin-top:24px;"></div>
+  </section>
+
+  <footer class="site-footer">
+    <p id="lastUpdated">最終更新:—</p>
+    <p>%SITE_NAME% ・ %SITE_TAGLINE%</p>
+  </footer>
+
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

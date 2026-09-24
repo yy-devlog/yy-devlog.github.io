@@ -10,9 +10,11 @@ Chart.defaults.borderColor = line;
 Chart.defaults.font.family = "Inter, system-ui, sans-serif";
 
 // ---- 静的な価格比較(公式発表ベース。ここは手動更新でOK) ----
+// 「〜から」の最低価格の構成。2026年9月時点のApple公式サイト・Googleストアの表記。
+// TODO(公開前に確認): SE 3(41,800円から)とFitbit Air(16,800円)は要再確認。
 const priceData = {
-  labels: ['SE3 + Air 合計', 'Apple Watch Series 11', 'Apple Watch Ultra 3'],
-  values: [37800 + 16800, 64800, 129800]
+  labels: ['SE 3 + Air 合計', 'Apple Watch Series 12(から)', 'Apple Watch Ultra 4(から)'],
+  values: [41800 + 16800, 71800, 142800]
 };
 
 new Chart(document.getElementById('priceChart'), {

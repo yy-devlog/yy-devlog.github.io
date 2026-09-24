@@ -5,6 +5,7 @@
   1. articles/*.md(Markdown形式の記事)を、HTMLの記事ページに変換する
   2. 記事一覧ページ(articles/index.html)と、トップページの「新着記事」を作る
   3. index.html / about.html / privacy.html / assets / data/log.json を _site/ にコピーする
+     (compare.html は実測データの公開準備ができるまで、--drafts のときだけ含める)
   4. sitemap.xml(検索エンジン向けのページ一覧)、robots.txt、404.html を作る
 
 使い方:
@@ -14,8 +15,8 @@
 
   確認するとき: python3 -m http.server -d _site 8000  →  http://localhost:8000/
 
-サイトのURLを変えたい場合(独自ドメインにしたときなど)は、環境変数 SITE_URL で指定する。
-  例: SITE_URL=https://example.com python3 scripts/build_site.py
+サイトのURL・サイト名は、環境変数 SITE_URL / SITE_NAME / SITE_TAGLINE で変えられる。
+  例: SITE_URL=https://example.com SITE_NAME=ソクログ python3 scripts/build_site.py
 """
 import html
 import json
@@ -34,10 +35,15 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "_site"
-SITE_URL = (os.environ.get("SITE_URL") or "https://yy-devlog.github.io/wearable-duo-log").rstrip("/")
+SITE_URL = (os.environ.get("SITE_URL") or "https://yy-devlog.github.io").rstrip("/")
+# サイト名は未定。決まったら、ここ(または環境変数)を書き換えるだけで全ページに反映される。
+SITE_NAME = os.environ.get("SITE_NAME") or "yy-devlog"
+SITE_TAGLINE = os.environ.get("SITE_TAGLINE") or "ウェアラブルとイヤホンの実測記録"
+# 公開準備ができるまで、--drafts のときだけ出力するページ
+DRAFT_PAGES = {"compare.html"}
 
 SLUG_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]*$")
-ARTICLE_NOTICE = "※ 価格・仕様は記事公開時点の情報です。購入前に公式サイト等で最新の情報をご確認ください。"
+ARTICLE_NOTICE = "※ 価格・仕様は記事に書いた時点の情報です。購入前に公式サイト等で最新の情報をご確認ください。"
 
 
 def fail(message):
@@ -50,6 +56,7 @@ def esc(value):
 
 
 def render(template, **values):
+    values = dict(values, site_name=esc(SITE_NAME), tagline=esc(SITE_TAGLINE))
     for key, value in values.items():
         template = template.replace("{{" + key + "}}", value)
     return template
@@ -116,7 +123,7 @@ def empty_articles_html():
 def copy_page(name, latest_html):
     """静的ページをコピーしつつ、%SITE_URL% と新着記事の目印を置き換える。"""
     text = (ROOT / name).read_text(encoding="utf-8")
-    text = text.replace("%SITE_URL%", SITE_URL)
+    text = text.replace("%SITE_URL%", SITE_URL).replace("%SITE_NAME%", esc(SITE_NAME)).replace("%SITE_TAGLINE%", esc(SITE_TAGLINE))
     text = re.sub(r"<!-- LATEST_ARTICLES:.*?-->", lambda _: latest_html, text, flags=re.S)
     (OUT / name).write_text(text, encoding="utf-8")
 
@@ -144,8 +151,10 @@ def main():
     OUT.mkdir()
 
     # ---- 静的ページ・素材のコピー ----
-    latest = article_list_html(articles[:3], "") if articles else empty_articles_html()
-    for name in ("index.html", "about.html", "privacy.html"):
+    latest = article_list_html(articles, "") if articles else empty_articles_html()
+    pages = ["index.html", "about.html", "privacy.html"]
+    pages += sorted(DRAFT_PAGES) if include_drafts else []
+    for name in pages:
         copy_page(name, latest)
     shutil.copytree(ROOT / "assets", OUT / "assets")
     (OUT / "data").mkdir()
@@ -180,7 +189,7 @@ def main():
         extra_head = '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("<", "\\u003c") + "</script>\n"
         page = render(
             base,
-            title=esc(a["title"]) + " | SE3 × Air ログ",
+            title=esc(a["title"]) + " | " + esc(SITE_NAME),
             description=esc(a["description"]),
             canonical=canonical,
             og_type="article",
@@ -202,8 +211,8 @@ def main():
     )
     page = render(
         base,
-        title="記事一覧 | SE3 × Air ログ",
-        description="Apple Watch SE3とFitbit Airの実測比較や使い方の記録の記事一覧。",
+        title="記事一覧 | " + esc(SITE_NAME),
+        description=esc(SITE_TAGLINE + "の記事一覧。"),
         canonical=f"{SITE_URL}/articles/",
         og_type="website",
         robots="",
@@ -221,7 +230,7 @@ def main():
     )
     page = render(
         base,
-        title="ページが見つかりません | SE3 × Air ログ",
+        title="ページが見つかりません | " + esc(SITE_NAME),
         description="お探しのページは見つかりませんでした。",
         canonical=f"{SITE_URL}/404.html",
         og_type="website",
@@ -233,8 +242,8 @@ def main():
     (OUT / "404.html").write_text(page, encoding="utf-8")
 
     # ---- sitemap.xml / robots.txt ----
-    urls = [(f"{SITE_URL}/", None), (f"{SITE_URL}/articles/", None),
-            (f"{SITE_URL}/about.html", None), (f"{SITE_URL}/privacy.html", None)]
+    urls = [(f"{SITE_URL}/", None), (f"{SITE_URL}/articles/", None)]
+    urls += [(f"{SITE_URL}/{name}", None) for name in pages if name not in DRAFT_PAGES and name != "index.html"]
     urls += [(f"{SITE_URL}/articles/{a['slug']}/", a["updated"] or a["date"]) for a in articles if not a["draft"]]
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc, lastmod in urls:
@@ -242,6 +251,15 @@ def main():
     lines.append("</urlset>")
     (OUT / "sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
     (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n", encoding="utf-8")
+
+    # 未記入の目印(【ここに…】【YYYY…】【Googleフォーム…】)や TODO が公開ページに残っていないか知らせる(止めはしない)
+    leftovers = []
+    for f in sorted(OUT.rglob("*.html")):
+        body = re.sub(r"<!--.*?-->", "", f.read_text(encoding="utf-8"), flags=re.S)
+        if re.search(r"【(?:ここに|YYYY|Googleフォーム)|TODO", body):
+            leftovers.append(str(f.relative_to(OUT)))
+    if leftovers:
+        print("注意: 未記入の欄や TODO が残っているページがあります(公開前に確認してください): " + ", ".join(leftovers))
 
     mode = "(下書きを含む)" if include_drafts else ""
     print(f"_site/ を作りました{mode}: 記事{len(articles)}本 / サイトURL {SITE_URL}")

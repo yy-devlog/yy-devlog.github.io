@@ -142,3 +142,16 @@ canvas { max-width: 100%; }
 .page-head { padding: 48px 0 8px; }
 .page-head h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 32px; margin: 0 0 8px; }
 .page-head p { color: var(--text-dim); margin: 0 0 24px; }
+
+h1.title.wide { max-width: none; }
+
+/* ---- スマホ幅でナビがはみ出さないようにする ---- */
+nav.site-nav .wrap { flex-wrap: wrap; gap: 8px 20px; }
+nav.site-nav .brand { white-space: nowrap; }
+nav.site-nav .links { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+nav.site-nav .links a { margin-left: 0; white-space: nowrap; }
+.article, .review-block { overflow-wrap: anywhere; }
+@media (max-width: 620px) {
+  .wrap { padding: 0 16px; }
+  nav.site-nav .links a { font-size: 13px; }
+}

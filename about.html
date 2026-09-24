@@ -3,46 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>このサイトについて | SE3 × Air ログ</title>
-<meta name="description" content="SE3 × Air ログの運営者情報、広告・アフィリエイトについて、掲載データの扱いについて。">
+<title>このサイトについて | %SITE_NAME%</title>
+<meta name="description" content="%SITE_NAME%の目的、運営者、記事の書き方、お問い合わせについて。">
 <link rel="canonical" href="%SITE_URL%/about.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="%SITE_NAME%">
+<meta property="og:title" content="このサイトについて | %SITE_NAME%">
+<meta property="og:description" content="%SITE_NAME%の目的、運営者、記事の書き方、お問い合わせについて。">
+<meta property="og:url" content="%SITE_URL%/about.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌚</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <nav class="site-nav">
   <div class="wrap">
-    <a class="brand" href="index.html">⌚ SE3 × Air ログ</a>
-    <div class="links"><a href="index.html">トップ</a><a href="articles/">記事</a><a href="privacy.html">プライバシーポリシー</a></div>
+    <a class="brand" href="index.html">⌚ %SITE_NAME%</a>
+    <div class="links"><a href="articles/">記事</a><a href="about.html">このサイトについて</a><a href="privacy.html">プライバシーポリシー</a></div>
   </div>
 </nav>
 <div class="wrap" style="padding:56px 0;">
-  <h1 class="title" style="font-size:32px;">このサイトについて</h1>
+  <h1 class="title wide" style="font-size:32px;">このサイトについて</h1>
 
   <div class="review-block">
-    <!--
-      TODO(運営者が後で自分で記入する):
-      下の【ここに氏名を記入】【ここに連絡先…】を、実際の氏名(または屋号)と連絡先に書き換える。
-      Amazonアソシエイトの審査でも、運営者情報の記載は確認される項目。
-      このページはGitHub(公開リポジトリ)に載るため、書いた内容は誰でも見られる点に注意。
-      連絡先は、公開して問題ないメールアドレスやお問い合わせフォームにすること。
-    -->
-    <h2 class="section-title" style="font-size:20px;">運営者情報</h2>
+    <h2 class="section-title" style="font-size:20px;">サイトの目的</h2>
     <p>
-      氏名:【ここに氏名を記入】<br>
-      連絡先:【ここに連絡先(メールアドレス等)を記入】
+      スマートウォッチや活動量計、イヤホンなどのウェアラブルを、実際に身に着けて測った数値で紹介する個人の記録です。
+      カタログの数字ではなく、使ってみて分かったことを、結論を先に書いたうえで実測で確かめていきます。
     </p>
 
-    <h2 class="section-title" style="font-size:20px;">広告・アフィリエイトについて</h2>
+    <!--
+      TODO(運営者が後で自分で記入する):
+      下の【】部分を、実際の表示名と紹介文に書き換える。
+      - 表示名は、本名でなくても構わない(ハンドルネーム、屋号、会社名のいずれか)。
+      - 紹介文は1〜2文でよい。職業(医師など)を書くかどうかも、運営者が決める。
+      - このページはGitHubの公開リポジトリに載るため、書いた内容は誰でも見られる。
+    -->
+    <h2 class="section-title" style="font-size:20px;">運営者</h2>
     <p>
-      本サイトのコンテンツには、Amazonアソシエイト・プログラムをはじめとするアフィリエイト広告(プロモーション)を含む場合があります。
-      Amazonアソシエイト・プログラムへの参加を予定しています。
-      <!-- TODO: 審査に通過したら、次の一文に差し替える:
-      「本サイトは、Amazon.co.jpを宣伝しリンクすることによってサイトが紹介料を獲得できるように設計されたアフィリエイトプログラムである、Amazonアソシエイト・プログラムの参加者です。」 -->
-      商品のご購入・お申し込みの際は、必ず公式サイト等で最新の情報をご確認ください。
+      表示名:【ここに表示名を記入】<br>
+      紹介:【ここに1〜2文の自己紹介を記入】
     </p>
-    <p style="color:var(--text-dim); font-size:13px;">
-      【申請中】現時点ではAmazonアソシエイトの審査結果待ちのため、実際のアフィリエイトリンクは掲載していません。承認後、本ページの記載内容を更新します。
+
+    <h2 class="section-title" style="font-size:20px;">記事の書き方について</h2>
+    <p>
+      記事は、運営者が実際に使った体験にもとづいて、一人称で書いています。
+      価格や仕様は、書いた時点の公式サイトの表記を確認して載せ、時点を記しています。購入前には、必ず公式サイト等で最新の情報をご確認ください。
+    </p>
+    <p>
+      結論と実測が食い違ったときは、そのまま書きます。誤りに気づいた場合は、記事を訂正し、更新日を記します。
     </p>
 
     <h2 class="section-title" style="font-size:20px;">医療・健康に関する情報について</h2>
@@ -51,12 +60,20 @@
       機器が備える心拍や不整脈に関する機能についても、機能の紹介と使用感の記録にとどめています。
       体調に不安がある場合は、医療機関にご相談ください。
     </p>
-
-    <h2 class="section-title" style="font-size:20px;">掲載データについて</h2>
     <p>
-      サイト内の歩数・アクティビティ・ワークアウトのデータは、運営者自身が実際に両デバイスを使用して記録した実測値です。
-      個人の使用環境・体格・装着方法による差異があり、すべての方に同じ結果を保証するものではありません。
+      掲載する数値は、運営者自身が実際に使って記録した実測値です。使用環境・体格・装着方法による差があり、すべての方に同じ結果を保証するものではありません。
     </p>
+
+    <!-- TODO(運営者が後で自分で記入する): Googleフォームを作ったら、下のリンクの【…】を、フォームのURL(「送信」→ リンクのタブに出るもの)に書き換える。 -->
+    <h2 class="section-title" id="contact" style="font-size:20px;">お問い合わせ</h2>
+    <p>
+      記事へのご質問、誤りのご指摘などは、<a href="【GoogleフォームのURL】">お問い合わせフォーム</a>からお願いします。
+      返信をお約束するものではありません。健康上のお悩みや、診断・治療に関するご相談にはお答えできません。
+    </p>
+
+    <!-- 広告・アフィリエイトを始めるときは、ここに「広告について」の節を足す(Amazonアソシエイトの定型文もここに入れる)。 -->
+    <h2 class="section-title" style="font-size:20px;">広告について</h2>
+    <p>現在、本サイトには広告やアフィリエイトリンクを掲載していません。</p>
   </div>
 </div>
 </body>

@@ -7,7 +7,7 @@
 <meta name="description" content="{{description}}">
 <link rel="canonical" href="{{canonical}}">
 <meta property="og:type" content="{{og_type}}">
-<meta property="og:site_name" content="SE3 × Air ログ">
+<meta property="og:site_name" content="{{site_name}}">
 <meta property="og:title" content="{{title}}">
 <meta property="og:description" content="{{description}}">
 <meta property="og:url" content="{{canonical}}">
@@ -20,11 +20,9 @@
 {{extra_head}}</head>
 <body>
 
-<div class="ad-banner">本サイトはAmazonアソシエイト・プログラム等のアフィリエイト広告を掲載する予定です(現在準備中・リンクは未設置)</div>
-
 <nav class="site-nav">
   <div class="wrap">
-    <a class="brand" href="{{root}}index.html">⌚ SE3 × Air ログ</a>
+    <a class="brand" href="{{root}}index.html">⌚ {{site_name}}</a>
     <div class="links">
       <a href="{{root}}articles/">記事</a>
       <a href="{{root}}about.html">このサイトについて</a>
@@ -36,7 +34,7 @@
 <div class="wrap">
 {{content}}
   <footer class="site-footer">
-    <p>本サイトはAmazonアソシエイト・プログラムの参加者になることを予定しています。参加後は、適格販売により収入を得ることがあります。詳しくは<a href="{{root}}about.html">このサイトについて</a>をご覧ください。</p>
+    <p>{{site_name}} ・ {{tagline}}</p>
   </footer>
 </div>
 
