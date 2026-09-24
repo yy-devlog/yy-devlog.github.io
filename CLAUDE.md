@@ -46,7 +46,8 @@
   - 日次:歩数、運動時間、消費カロリー、睡眠時間などを、Apple Watch と Fitbit Air で並べた折れ線グラフ(項目切り替え、日ごと/週平均、2台の差)。欠測日は除く。
   - ワークアウト:ランニング(トレッドミル)、インドアサイクリング、バスケットボール。時間・平均心拍・最大心拍・消費カロリー・距離を、機器の表示と並べる。距離は機器表示との差(%)を計算。
   - 数字は並べて見せるだけで、医学的な解釈や「どちらが正確か」の判断は載せない。
-  - 入力は、まず週1回の手入力(日次は週にまとめて、ワークアウトは行った日のうちに)。その後、iOS ショートカットでの自動化を試す。
+  - 入力は、手入力が基本(日次は週にまとめて日曜の夜まで、ワークアウトは行った日のうちに)。手順は `docs/manual-entry-guide.md`。
+  - iOS ショートカットでの自動入力は、SE 3 と Fitbit Air が揃ってから、もう一度考える(受け口 `scripts/gas/Code.gs` は動作確認済み。試した結果は `docs/ios-shortcut-guide.md` の冒頭)。
 - GitHub のユーザー名は `yy-devlog`。コミットのメールは noreply を使い、本物のメールアドレスは公開しない
 
 ### データベース設計(該当する場合)
@@ -91,5 +92,6 @@
 1. privacy の制定日を入れる
 2. 記事1本目は、Fitbit Air が届いて睡眠・ワークアウトのデータが数個たまってから公開する(それまで `draft: true`)
 3. GitHub でリポジトリ `yy-devlog.github.io` を作成し、push、Pages の Source を GitHub Actions に設定
-4. iOS ショートカット → Google Apps Script による自動入力(Apple Watch のデータで先行して試す)。コード `scripts/gas/Code.gs` と手順書 `docs/ios-shortcut-guide.md` は作成済み(ロジックは擬似シートでテスト済み)。運営者が Apps Script のデプロイと iPhone のショートカットを設定して、実機で確認する。合言葉と受け口の URL は公開しない
+4. シートを「ウェブに公開」して、GitHub の Variables(`SHEET_DAILY_CSV_URL`、`SHEET_WORKOUTS_CSV_URL`)に登録し、Actions の手動実行で確認する(手順は `docs/manual-entry-guide.md`)。※ 今のApple WatchはSeries 9のため、SE 3 が届くまで `Apple Watch SE3` の実測データは入れない
+   自動入力(ショートカット)は後回し。受け口は動作確認済み。合言葉と受け口の URL は公開しない
 5. Fitbit Air 到着後(2026年10月〜):シートに入力 → 実データで表示を確認 → 測定方法の記事 → 実測編 → `compare.html` の公開
