@@ -2,7 +2,7 @@
 title: Apple Watch SE 3とFitbit Airを比較してみた【結論・スペック・価格編】
 date: 2026-09-24
 description: Series 12が出ている中で、なぜApple Watch SE 3とFitbit Airを併用するのか。結論を先に書き、スペックと価格から理由を整理した。実測編は10月以降。
-tags: Apple Watch SE 3, Fitbit Air, 比較
+tags: ウェアラブルデバイスの最適解を考える, Apple Watch SE 3, Fitbit Air, 比較
 draft: true
 ---
 
@@ -16,6 +16,8 @@ draft: true
   3) 日付(date)は公開日に合わせる。
   4) 「〜だと思う」「自分は〜」の表現は運営者の考えなので、実際の考えに合わせて直す。
 -->
+
+*連載「ウェアラブルデバイスの最適解を考える」第1回*
 
 Apple Watchの最新はSeries 12だ。それでも自分は、Apple Watch SE 3とFitbit Airを組み合わせて使うことにした。先に結論を書く。
 
