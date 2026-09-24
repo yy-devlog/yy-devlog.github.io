@@ -6,8 +6,8 @@ on:
   push:
     branches: [main]      # 記事やページを更新して push したとき
   schedule:
-    # UTC 21:00 = 日本時間 6:00 に毎日実行
-    - cron: '0 21 * * *'
+    # 毎週月曜 日本時間 6:00 に実行(UTC 日曜 21:00)。日曜の夜までにシートへ入力しておく。
+    - cron: '0 21 * * 0'
   workflow_dispatch: {}   # 手動実行ボタンも使えるようにする
 
 permissions:
@@ -32,21 +32,26 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Fetch published sheet and convert to JSON
+      - name: Fetch published sheets and convert to JSON
         env:
-          # Googleスプレッドシートの「ウェブに公開」CSVのURL。
-          # Settings > Secrets and variables > Actions > Variables に
-          # SHEET_CSV_URL という名前で保存しておく。
-          SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
+          # Googleスプレッドシートの「日次」タブと「ワークアウト」タブを、それぞれ
+          # 「ウェブに公開」したCSVのURL。Settings > Secrets and variables > Actions > Variables に保存する。
+          SHEET_DAILY_CSV_URL: ${{ vars.SHEET_DAILY_CSV_URL }}
+          SHEET_WORKOUTS_CSV_URL: ${{ vars.SHEET_WORKOUTS_CSV_URL }}
         run: |
-          if [ -z "$SHEET_CSV_URL" ]; then
-            echo "SHEET_CSV_URL が未設定のため、リポジトリ内の data/log.json をそのまま使います。"
+          if [ -z "$SHEET_DAILY_CSV_URL" ] && [ -z "$SHEET_WORKOUTS_CSV_URL" ]; then
+            echo "シートのURLが未設定のため、リポジトリ内の data/log.json をそのまま使います。"
+          elif [ -z "$SHEET_DAILY_CSV_URL" ] || [ -z "$SHEET_WORKOUTS_CSV_URL" ]; then
+            echo "SHEET_DAILY_CSV_URL と SHEET_WORKOUTS_CSV_URL は、両方を設定してください。README.md を参照。"
+            exit 1
           else
             # -f: 取得に失敗したら止める(失敗したまま古いデータや空データで公開しない)
-            curl -fsSL --retry 3 "$SHEET_CSV_URL" -o data/raw.csv
-            test -s data/raw.csv
+            curl -fsSL --retry 3 "$SHEET_DAILY_CSV_URL" -o data/raw_daily.csv
+            curl -fsSL --retry 3 "$SHEET_WORKOUTS_CSV_URL" -o data/raw_workouts.csv
+            test -s data/raw_daily.csv
+            test -s data/raw_workouts.csv
             # 列が想定と違う場合は、ここでエラーになり公開されない
-            python3 scripts/csv_to_json.py data/raw.csv data/log.json
+            python3 scripts/csv_to_json.py --daily data/raw_daily.csv --workouts data/raw_workouts.csv --out data/log.json
           fi
 
       - name: Build site

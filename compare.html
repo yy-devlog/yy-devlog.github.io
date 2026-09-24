@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -27,6 +27,7 @@
   公開するとき:
     1) build_site.py の DRAFT_PAGES から "compare.html" を外す
     2) 下の価格(SE 3・Series 12・Ultra 4・Fitbit Air)と assets/app.js の priceData を、公式ページで再確認する
+       (グラフの見た目の確認は: python3 scripts/build_site.py --drafts --sample-data 。架空のデータなので、公開はしない)
     3) 各ページのナビに「実測データ」のリンクを足す
 -->
 
@@ -87,19 +88,19 @@
       </div>
     </div>
     <div class="price-chart-wrap">
-      <canvas id="priceChart" height="90"></canvas>
+      <div class="chart-box short"><canvas id="priceChart"></canvas></div>
     </div>
   </section>
 
   <section id="trend">
     <h2 class="section-title">日々の記録</h2>
-    <p class="section-sub">歩数・アクティビティ時間の推移。スプレッドシート更新後、自動で反映される。</p>
+    <p class="section-sub">Apple Watch SE 3 と Fitbit Air の毎日の記録。週に1回、自動で更新される。</p>
     <div id="trendArea"></div>
   </section>
 
   <section id="workouts">
     <h2 class="section-title">ワークアウト別の比較</h2>
-    <p class="section-sub">同じワークアウトを両デバイスで記録した際の数値差。</p>
+    <p class="section-sub">ランニング(トレッドミル)、インドアサイクリング、バスケットボールを、両デバイスで記録して並べる。</p>
     <div id="workoutArea"></div>
   </section>
 

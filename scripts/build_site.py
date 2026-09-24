@@ -12,6 +12,7 @@
   pip install -r scripts/requirements.txt
   python3 scripts/build_site.py            # 公開用(draft: true の記事は含めない)
   python3 scripts/build_site.py --drafts   # 手元の確認用(下書きも含める)
+  python3 scripts/build_site.py --drafts --sample-data   # 架空のサンプルデータでグラフの見た目を確認する(公開しない)
 
   確認するとき: python3 -m http.server -d _site 8000  →  http://localhost:8000/
 
@@ -34,6 +35,8 @@ except ImportError:
     sys.exit(1)
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import csv_to_json  # 同じフォルダの変換スクリプト
 OUT = ROOT / "_site"
 SITE_URL = (os.environ.get("SITE_URL") or "https://yy-devlog.github.io").rstrip("/")
 # サイト名は未定。決まったら、ここ(または環境変数)を書き換えるだけで全ページに反映される。
@@ -159,6 +162,11 @@ def main():
     shutil.copytree(ROOT / "assets", OUT / "assets")
     (OUT / "data").mkdir()
     shutil.copy(ROOT / "data" / "log.json", OUT / "data" / "log.json")
+    if "--sample-data" in sys.argv:
+        # 手元の確認用: 架空のサンプルデータに差し替える(_site/ の中だけ。data/log.json は変えない)
+        csv_to_json.convert(str(ROOT / "data/sample/daily.csv"), str(ROOT / "data/sample/workouts.csv"),
+                            str(OUT / "data" / "log.json"))
+        print("注意: 架空のサンプルデータを使っています。このまま公開しないでください。")
 
     # ---- 記事ページ ----
     for a in articles:
