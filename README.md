@@ -15,6 +15,7 @@ index.html                               トップ(記事一覧)
 about.html / privacy.html                このサイトについて・プライバシーポリシー
 compare.html                             実測データの比較ページ(記録が始まるまで非公開。DRAFT_PAGES で制御)
 data/templates/, data/sample/            シートの列名の雛形 / 手元確認用の架空データ(公開されない)
+scripts/gas/, docs/                      iPhoneのショートカットからシートへ自動入力する受け口(Apps Script)と、その手順書
 assets/                                  style.css, app.js(グラフ描画)
 data/log.json                            記録データ(スプレッドシートから自動生成される)
 articles/                                記事(Markdown)を置く場所

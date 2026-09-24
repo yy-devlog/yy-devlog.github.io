@@ -91,5 +91,5 @@
 1. privacy の制定日を入れる
 2. 記事1本目は、Fitbit Air が届いて睡眠・ワークアウトのデータが数個たまってから公開する(それまで `draft: true`)
 3. GitHub でリポジトリ `yy-devlog.github.io` を作成し、push、Pages の Source を GitHub Actions に設定
-4. iOS ショートカット → Google Apps Script による自動入力の調査(Apple Watch のデータで先行して試す)
+4. iOS ショートカット → Google Apps Script による自動入力(Apple Watch のデータで先行して試す)。コード `scripts/gas/Code.gs` と手順書 `docs/ios-shortcut-guide.md` は作成済み(ロジックは擬似シートでテスト済み)。運営者が Apps Script のデプロイと iPhone のショートカットを設定して、実機で確認する。合言葉と受け口の URL は公開しない
 5. Fitbit Air 到着後(2026年10月〜):シートに入力 → 実データで表示を確認 → 測定方法の記事 → 実測編 → `compare.html` の公開
