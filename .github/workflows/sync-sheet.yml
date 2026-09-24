@@ -1,0 +1,72 @@
+name: Sync data, build and deploy
+
+# 1本のワークフローで「スプレッドシート取得 → 記事のHTML化 → 公開」まで行う。
+# (Actionsが自動コミットしても別のワークフローは起動しない仕様のため、まとめている)
+on:
+  push:
+    branches: [main]      # 記事やページを更新して push したとき
+  schedule:
+    # UTC 21:00 = 日本時間 6:00 に毎日実行
+    - cron: '0 21 * * *'
+  workflow_dispatch: {}   # 手動実行ボタンも使えるようにする
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Fetch published sheet and convert to JSON
+        env:
+          # Googleスプレッドシートの「ウェブに公開」CSVのURL。
+          # Settings > Secrets and variables > Actions > Variables に
+          # SHEET_CSV_URL という名前で保存しておく。
+          SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
+        run: |
+          if [ -z "$SHEET_CSV_URL" ]; then
+            echo "SHEET_CSV_URL が未設定のため、リポジトリ内の data/log.json をそのまま使います。"
+          else
+            # -f: 取得に失敗したら止める(失敗したまま古いデータや空データで公開しない)
+            curl -fsSL --retry 3 "$SHEET_CSV_URL" -o data/raw.csv
+            test -s data/raw.csv
+            # 列が想定と違う場合は、ここでエラーになり公開されない
+            python3 scripts/csv_to_json.py data/raw.csv data/log.json
+          fi
+
+      - name: Build site
+        env:
+          # 独自ドメインを使うときだけ、Variables に SITE_URL(例: https://example.com)を追加する。未設定なら初期値を使う。
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: python3 scripts/build_site.py
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

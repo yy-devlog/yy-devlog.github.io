@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:type" content="{{og_type}}">
+<meta property="og:site_name" content="SE3 × Air ログ">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta name="twitter:card" content="summary">
+{{robots}}<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌚</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{root}}assets/style.css">
+{{extra_head}}</head>
+<body>
+
+<div class="ad-banner">本サイトはAmazonアソシエイト・プログラム等のアフィリエイト広告を掲載する予定です(現在準備中・リンクは未設置)</div>
+
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="{{root}}index.html">⌚ SE3 × Air ログ</a>
+    <div class="links">
+      <a href="{{root}}articles/">記事</a>
+      <a href="{{root}}about.html">このサイトについて</a>
+      <a href="{{root}}privacy.html">プライバシーポリシー</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+{{content}}
+  <footer class="site-footer">
+    <p>本サイトはAmazonアソシエイト・プログラムの参加者になることを予定しています。参加後は、適格販売により収入を得ることがあります。詳しくは<a href="{{root}}about.html">このサイトについて</a>をご覧ください。</p>
+  </footer>
+</div>
+
+</body>
+</html>
